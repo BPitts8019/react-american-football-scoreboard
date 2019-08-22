@@ -1,20 +1,11 @@
 import React, { useState } from "react";
 import "./App.css";
 import BottomRow from "./BottomRow";
+import Buttons from "./Buttons";
 
 function App() {
-   const TOUCHDOWN = 7;
-   const FIELD_GOAL = 3
    const [homeScore, setHomeScore] = useState(0);
    const [awayScore, setAwayScore] = useState(0);
-   const scoreClick = (team, score = TOUCHDOWN) => {
-      const newScore = (team === "home")? homeScore+score : awayScore+score;
-      if (team === "home") {
-         setHomeScore(newScore);
-      } else {
-         setAwayScore(newScore);
-      }
-   };
 
    return (
       <div className="container">
@@ -33,14 +24,8 @@ function App() {
             <BottomRow />
          </section>
          <section className="buttons">
-            <div className="homeButtons">
-               <button className="homeButtons__touchdown" onClick={() => { scoreClick("home", TOUCHDOWN) }}>Home Touchdown</button>
-               <button className="homeButtons__fieldGoal" onClick={() => { scoreClick("home", FIELD_GOAL) }}>Home Field Goal</button>
-            </div>
-            <div className="awayButtons">
-               <button className="awayButtons__touchdown" onClick={() => { scoreClick("away", TOUCHDOWN) }}>Away Touchdown</button>
-               <button className="awayButtons__fieldGoal" onClick={() => { scoreClick("away", FIELD_GOAL) }}>Away Field Goal</button>
-            </div>
+            <Buttons team="home" currentScore={homeScore} scoreSetter={setHomeScore}/>
+            <Buttons team="away" currentScore={awayScore} scoreSetter={setAwayScore}/>
          </section>
       </div>
    );
